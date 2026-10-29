@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --color-bg-dark: #121214;
+  --color-panel-dark: #1C1C21;
+  --color-panel-hover: #26262D;
+  --color-accent-pink: #D07BFF;
+  --color-accent-magenta: #FF5E98;
+  --color-text-main: #FFFFFF;
+  --color-text-muted: #A1A1A8;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-main);
+    font-family: var(--font-sans);
+  }
+}
+
+/* Custom Utilities for Premium Look */
+@layer utilities {
+  .glass-panel {
+    background: linear-gradient(145deg, rgba(28, 28, 33, 0.7) 0%, rgba(20, 20, 24, 0.9) 100%);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(90deg, var(--color-accent-pink), var(--color-accent-magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .glow-button {
+    background: linear-gradient(90deg, var(--color-accent-pink), var(--color-accent-magenta));
+    box-shadow: 0 4px 15px rgba(208, 123, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .glow-button:hover {
+    box-shadow: 0 6px 20px rgba(208, 123, 255, 0.5);
+    transform: translateY(-1px);
+  }
+  
+  .sidebar-link {
+    color: var(--color-text-muted);
+    transition: all 0.2s ease;
+  }
+  
+  .sidebar-link:hover, .sidebar-link.active {
+    color: var(--color-text-main);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .sidebar-link.active {
+    background: linear-gradient(90deg, rgba(208,123,255,0.1) 0%, transparent 100%);
+    border-left: 3px solid var(--color-accent-pink);
+  }
+}

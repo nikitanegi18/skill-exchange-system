@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:all": "npx concurrently -n user,skill,exchange -c blue,green,magenta \"npm run start:user\" \"npm run start:skill\" \"npm run start:exchange\"",
+    "start:user": "node services/user-service/server.js",
+    "start:skill": "node services/skill-service/server.js",
+    "start:exchange": "node services/exchange-service/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.11.1",
+    "multer": "^2.4.0"
+  }
+}

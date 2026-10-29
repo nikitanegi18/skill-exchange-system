@@ -1,0 +1,34 @@
+services:
+  - type: web
+    name: skill-exchange-user
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run start:user
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+  - type: web
+    name: skill-exchange-skill
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run start:skill
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+  - type: web
+    name: skill-exchange-exchange
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run start:exchange
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+  - type: web
+    name: skill-exchange-messaging
+    env: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node e2ee-backend.js
