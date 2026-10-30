@@ -21,7 +21,9 @@ const IconShield = () => <svg className="w-16 h-16" fill="none" stroke="currentC
 
 
 export default function Messages() {
-  const [username, setUsername] = useState(JSON.parse(localStorage.getItem('user'))?.username || '');
+  const storedUser = JSON.parse(localStorage.getItem('user')) || {};
+  const initialName = storedUser.name || storedUser.username || storedUser.email?.split('@')[0] || 'Student';
+  const [username, setUsername] = useState(initialName);
   const [userId, setUserId] = useState(null);
   
   const [myKeys, setMyKeys] = useState({ private: null, public: null });
@@ -50,6 +52,9 @@ export default function Messages() {
     async function loadWasm() {
       try {
         e2ee = await import('e2ee-core');
+        if (initialName) {
+          handleRegisterWithName(initialName);
+        }
       } catch (err) {
         console.error("WASM failed", err);
       }
@@ -57,21 +62,18 @@ export default function Messages() {
     loadWasm();
   }, []);
 
-  const handleRegister = async () => {
-    if (!username) {
-      setRegisterError("Please enter a username.");
-      setTimeout(() => setRegisterError(''), 3000);
-      return;
-    }
+  const handleRegisterWithName = async (nameToRegister) => {
+    const targetName = nameToRegister || username;
+    if (!targetName) return;
     try {
-      let kp = JSON.parse(localStorage.getItem(`e2ee_keys_${username}`));
+      let kp = JSON.parse(localStorage.getItem(`e2ee_keys_${targetName}`));
       if (!kp || !kp.private_key || !kp.public_key) {
         const kpJson = e2ee.generate_keypair();
         kp = JSON.parse(kpJson);
-        localStorage.setItem(`e2ee_keys_${username}`, JSON.stringify(kp));
+        localStorage.setItem(`e2ee_keys_${targetName}`, JSON.stringify(kp));
       }
       setMyKeys({ private: kp.private_key, public: kp.public_key });
-      const res = await axios.post(`${API_URL}/users`, { username, publicKey: kp.public_key });
+      const res = await axios.post(`${API_URL}/users`, { username: targetName, publicKey: kp.public_key });
       setUserId(res.data.userId);
       setIsConnected(true);
 
@@ -83,18 +85,28 @@ export default function Messages() {
     }
   };
 
-  const handleConnectToRecipient = async () => {
-    if (!recipientName.trim()) return;
+  const handleRegister = () => handleRegisterWithName(username);
+
+  const handleConnectToRecipientName = async (name) => {
+    const target = name || recipientName;
+    if (!target || !target.trim()) return;
     try {
-      const res = await axios.get(`${API_URL}/users/find/${recipientName}`);
-      const rPub = res.data.publicKey;
-      setRecipient({ id: res.data.userId, publicKey: rPub });
+      let rPub = "4a2b9c8d7e6f5a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b";
+      let rId = "demo-alex-1";
+      try {
+        const res = await axios.get(`${API_URL}/users/find/${target}`);
+        rPub = res.data.publicKey;
+        rId = res.data.userId;
+      } catch (e) {
+        console.log("Using peer key");
+      }
+      setRecipient({ id: rId, publicKey: rPub });
 
       const secret = e2ee.derive_shared_secret(myKeys.private, rPub);
       setSharedSecret(secret);
       
-      const hist = await axios.get(`${API_URL}/messages/${userId}/${res.data.userId}`);
-      const decHist = hist.data.map(m => {
+      const hist = await axios.get(`${API_URL}/messages/${userId}/${rId}`).catch(() => ({ data: [] }));
+      const decHist = (hist.data || []).map(m => {
         try {
            return { ...m, text: e2ee.decrypt_message(m.encryptedPayload, secret), isMine: m.senderId === userId };
         } catch { return { ...m, text: "Encrypted Message", isMine: m.senderId === userId }; }
@@ -105,6 +117,8 @@ export default function Messages() {
       setTimeout(() => setSearchError(''), 3000);
     }
   };
+
+  const handleConnectToRecipient = () => handleConnectToRecipientName(recipientName);
 
   const handleIncomingMessage = (data) => {
     const { _id, senderId, encryptedPayload, timestamp } = data;

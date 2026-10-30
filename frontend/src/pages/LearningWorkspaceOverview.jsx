@@ -38,7 +38,7 @@ export default function LearningWorkspaceOverview() {
       
       const activeExchanges = reqData.filter(r => 
         r.status === 'accepted' && 
-        (r.requesterId === userId || mySkillsIds.includes(r.skillId) || r.skillOwnerId === userId)
+        (r.requesterId === 'all-students' || r.requesterId === userId || mySkillsIds.includes(r.skillId) || r.skillOwnerId === userId)
       );
 
       setExchanges(activeExchanges);

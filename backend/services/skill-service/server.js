@@ -19,7 +19,11 @@ const skillSchema = new mongoose.Schema({
 });
 const Skill = mongoose.model("Skill", skillSchema);
 
-let inMemorySkills = [];
+let inMemorySkills = [
+  { _id: "demo-skill-1", name: "Cloud Architecture & Kubernetes", description: "Hands-on microservices design, Docker containers, and Kubernetes cluster orchestration.", category: "Cloud Computing", userId: "demo-teacher-alex", createdAt: new Date() },
+  { _id: "demo-skill-2", name: "Full-Stack React & Node.js", description: "Building responsive single page applications with state management and REST APIs.", category: "Web Development", userId: "demo-student-sarah", createdAt: new Date() },
+  { _id: "demo-skill-3", name: "Machine Learning & PyTorch", description: "Deep neural networks, model training, loss optimization, and computer vision models.", category: "Data Science", userId: "demo-teacher-alex", createdAt: new Date() }
+];
 let useMongo = true;
 
 mongoose.connect(process.env.MONGODB_URI, { serverSelectionTimeoutMS: 5000 })

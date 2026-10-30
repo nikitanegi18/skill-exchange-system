@@ -12,7 +12,10 @@ const io = new Server(server, {
   cors: { origin: "*", methods: ["GET", "POST"] }
 });
 
-const users = []; // in-memory
+const users = [
+  { userId: "demo-alex-1", username: "Alex Rivera", publicKey: "4a2b9c8d7e6f5a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b" },
+  { userId: "demo-sarah-1", username: "Sarah Chen", publicKey: "1f2e3d4c5b6a7f8e9d0c1b2a3f4e5d6c7b8a9f0e1d2c3b4a5f6e7d8c9b0a1f2e" }
+]; // preloaded demo peers
 const messages = []; // in-memory
 const socketMap = {};
 

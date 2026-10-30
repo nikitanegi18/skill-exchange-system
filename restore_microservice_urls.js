@@ -20,3 +20,4 @@ function processDir(dir) {
 }
 processDir(srcDir);
 console.log('Restored microservices URLs in frontend!');
+
