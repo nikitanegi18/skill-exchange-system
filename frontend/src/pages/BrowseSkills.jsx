@@ -17,12 +17,8 @@ function BrowseSkills() {
       const data = await response.json();
       setSkills(data);
     } catch (error) {
-      console.warn("Skill service waking up or offline, using catalog demo skills:", error);
-      setSkills([
-        { _id: "demo-skill-1", name: "Cloud Architecture & Kubernetes", description: "Hands-on microservices design, Docker containers, and Kubernetes cluster orchestration.", category: "Cloud Computing", userId: "demo-teacher-alex" },
-        { _id: "demo-skill-2", name: "Full-Stack React & Node.js", description: "Building responsive single page applications with state management and REST APIs.", category: "Web Development", userId: "demo-student-sarah" },
-        { _id: "demo-skill-3", name: "Machine Learning & PyTorch", description: "Deep neural networks, model training, loss optimization, and computer vision models.", category: "Data Science", userId: "demo-teacher-alex" }
-      ]);
+      console.error("Failed to load skills:", error);
+      setError("Unable to connect to Skill Service. Please ensure the backend service is running.");
     } finally {
       setLoading(false);
     }

@@ -55,3 +55,12 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
+    envVars:
+      - key: VITE_USER_API_URL
+        sync: false
+      - key: VITE_SKILL_API_URL
+        sync: false
+      - key: VITE_EXCHANGE_API_URL
+        sync: false
+      - key: VITE_MESSAGING_API_URL
+        sync: false

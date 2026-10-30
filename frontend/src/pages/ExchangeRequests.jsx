@@ -28,20 +28,8 @@ function ExchangeRequests() {
       setRequests(reqData);
       setSkills(skillsData);
     } catch (error) {
-      console.warn("Backend waking up, using fallback exchange requests:", error);
-      setSkills([
-        { _id: "demo-skill-1", name: "Cloud Architecture & Kubernetes", description: "Hands-on microservices design, Docker containers, and Kubernetes cluster orchestration.", category: "Cloud Computing", userId: "demo-teacher-alex" }
-      ]);
-      setRequests([
-        {
-          _id: "demo-exchange-1",
-          skillId: "demo-skill-1",
-          requesterId: "all-students",
-          skillOwnerId: "demo-teacher-alex",
-          message: "Welcome to your Cloud Computing Exchange Workspace! Scheduled sessions, notes, quizzes, and assignments are ready.",
-          status: "accepted"
-        }
-      ]);
+      console.error("Failed to load requests:", error);
+      setError("Unable to connect to Exchange Service. Please check backend services.");
     } finally {
       setLoading(false);
     }
