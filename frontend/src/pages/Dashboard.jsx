@@ -1,3 +1,4 @@
+import { SKILL_API_URL, EXCHANGE_API_URL } from "../apiConfig";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -22,7 +23,7 @@ function Dashboard() {
       return;
     }
 
-    fetch((import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002") + "/skills")
+    fetch(SKILL_API_URL + "/skills")
       .then((res) => {
         if (!res.ok) throw new Error("Skills unavailable");
         return res.json();
@@ -30,7 +31,7 @@ function Dashboard() {
       .then(setSkills)
       .catch(console.error);
 
-    fetch((import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003") + "/exchanges")
+    fetch(EXCHANGE_API_URL + "/exchanges")
       .then((res) => {
         if (!res.ok) throw new Error("Requests unavailable");
         return res.json();

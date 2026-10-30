@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "^1.20.0",
-    "e2ee-core": "file:../../.gemini/antigravity/scratch/e2ee-chat/rust-core/pkg",
+    "e2ee-core": "file:./e2ee-core",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.18.4",

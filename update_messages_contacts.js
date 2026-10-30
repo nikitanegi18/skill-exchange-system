@@ -34,3 +34,4 @@ const replacement = `                  <div className="p-3">
 content = content.replace(target, replacement);
 fs.writeFileSync(file, content);
 console.log('Successfully updated Contacts in Messages.jsx');
+

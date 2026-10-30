@@ -1,0 +1,17 @@
+{
+  "name": "e2ee-core",
+  "description": "WASM Cryptography Core for E2EE Chat",
+  "version": "0.1.0",
+  "files": [
+    "e2ee_core_bg.wasm",
+    "e2ee_core.js",
+    "e2ee_core_bg.js",
+    "e2ee_core.d.ts"
+  ],
+  "module": "e2ee_core.js",
+  "types": "e2ee_core.d.ts",
+  "sideEffects": [
+    "./e2ee_core.js",
+    "./snippets/*"
+  ]
+}

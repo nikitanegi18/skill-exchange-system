@@ -47,10 +47,10 @@ services:
   # Frontend Web Client (Single Page Application)
   - type: web
     name: skill-exchange-frontend
-    env: static
+    runtime: static
     rootDir: frontend
     buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    staticPublishPath: ./dist
     routes:
       - type: rewrite
         source: /*

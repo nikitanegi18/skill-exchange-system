@@ -1,9 +1,10 @@
+import { MESSAGING_API_URL } from "../apiConfig";
 import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 
-const SOCKET_URL = import.meta.env.VITE_MESSAGING_API_URL || "http://localhost:3001";
-const API_URL = (import.meta.env.VITE_MESSAGING_API_URL || "http://localhost:3001") + '/api';
+const SOCKET_URL = MESSAGING_API_URL;
+const API_URL = MESSAGING_API_URL + '/api';
 
 let e2ee = null;
 

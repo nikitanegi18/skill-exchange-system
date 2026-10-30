@@ -1,3 +1,4 @@
+import { SKILL_API_URL, EXCHANGE_API_URL } from "../apiConfig";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -22,8 +23,8 @@ export default function LearningWorkspaceOverview() {
   const loadData = async (userId) => {
     try {
       const [reqRes, skillsRes] = await Promise.all([
-        fetch((import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003") + "/exchanges"),
-        fetch((import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002") + "/skills")
+        fetch(EXCHANGE_API_URL + "/exchanges"),
+        fetch(SKILL_API_URL + "/skills")
       ]);
 
       if (!reqRes.ok || !skillsRes.ok) throw new Error("Failed to load data");

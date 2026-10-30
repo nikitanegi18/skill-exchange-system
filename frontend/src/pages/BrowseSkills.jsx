@@ -1,3 +1,4 @@
+import { SKILL_API_URL, EXCHANGE_API_URL } from "../apiConfig";
 import { useEffect, useState } from "react";
 
 function BrowseSkills() {
@@ -11,7 +12,7 @@ function BrowseSkills() {
     setLoading(true);
     setError("");
     try {
-      const response = await fetch((import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002") + "/skills");
+      const response = await fetch(SKILL_API_URL + "/skills");
       if (!response.ok) throw new Error("Failed to load skills");
       const data = await response.json();
       setSkills(data);
@@ -55,7 +56,7 @@ function BrowseSkills() {
     if (!exchangeMessage || !exchangeMessage.trim()) return;
 
     try {
-      const response = await fetch((import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003") + "/exchanges", {
+      const response = await fetch(EXCHANGE_API_URL + "/exchanges", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -68,11 +68,48 @@ const Exchange = mongoose.model("Exchange", exchangeSchema);
 
 // In-Memory fallbacks if Mongo fails
 let inMemoryUsers = [];
-let inMemorySkills = [];
-let inMemoryExchanges = [];
+let inMemorySkills = [
+  { _id: "demo-skill-1", name: "Cloud Architecture & Kubernetes", description: "Hands-on microservices design, Docker containers, and Kubernetes cluster orchestration.", category: "Cloud Computing", userId: "demo-teacher-alex", createdAt: new Date() },
+  { _id: "demo-skill-2", name: "Full-Stack React & Node.js", description: "Building responsive single page applications with state management and REST APIs.", category: "Web Development", userId: "demo-student-sarah", createdAt: new Date() },
+  { _id: "demo-skill-3", name: "Machine Learning & PyTorch", description: "Deep neural networks, model training, loss optimization, and computer vision models.", category: "Data Science", userId: "demo-teacher-alex", createdAt: new Date() }
+];
+let inMemoryExchanges = [
+  {
+    _id: "demo-exchange-1",
+    requesterId: "all-students",
+    skillId: "demo-skill-1",
+    skillOwnerId: "demo-teacher-alex",
+    message: "Welcome to your Cloud Computing Exchange Workspace! Scheduled sessions, notes, quizzes, and assignments are ready.",
+    status: "accepted",
+    rating: 5,
+    review: "Exceptional learning experience!",
+    workspace: {
+      sessions: [
+        { date: "Tomorrow, 4:00 PM", topic: "Lecture 1: Microservices Architecture & Containerization", meetingLink: "https://meet.jit.si/SkillExchange_Cloud_Class", status: "scheduled" },
+        { date: "Friday, 2:00 PM", topic: "Lecture 2: Kubernetes Ingress & Service Discovery", meetingLink: "https://meet.jit.si/SkillExchange_Cloud_Class_2", status: "scheduled" }
+      ],
+      notes: [
+        { authorId: "demo-teacher-alex", authorName: "Alex Rivera", content: "Official reference for our Cloud Computing project microservices decomposition.", url: "https://kubernetes.io/docs/concepts/overview/", timestamp: new Date() },
+        { authorId: "demo-student-sarah", authorName: "Sarah Chen", content: "Key concept: Decoupling services isolates failures and enables independent horizontal scaling.", url: "", timestamp: new Date() }
+      ],
+      assignments: [
+        { title: "Lab 1: Microservices Container Deployment", instructions: "Create a Dockerfile for the User Service and verify that it responds on port 5001.", dueDate: "Tomorrow, 11:59 PM", submission: "Dockerfile verified locally with curl.", feedback: "Great work! Images are lightweight.", score: 95, status: "completed" }
+      ],
+      quizzes: [
+        {
+          title: "Cloud Computing Fundamentals Quiz",
+          questions: [
+            { question: "What is the primary benefit of microservices over a monolithic architecture?", options: ["Single database file", "Independent scaling and fault isolation", "Faster execution on one CPU", "Elimination of network communication"], answer: "Independent scaling and fault isolation" }
+          ],
+          attempts: []
+        }
+      ]
+    }
+  }
+];
 let useMongo = true;
 
-const mongoUri = process.env.MONGODB_URI || "mongodb+srv://nikitanegi1854_db_user:F0uxPZsTeXyVw7nrno@cluster0.qaaq2cm.mongodb.net/?appName=Cluster0";
+const mongoUri = process.env.MONGODB_URI || "mongodb+srv://nikitanegi1854_db_user:F0uxPZsTeXyVw7nr@cluster0.qaaq2cm.mongodb.net/?appName=Cluster0";
 
 mongoose.connect(mongoUri, { serverSelectionTimeoutMS: 5000 })
   .then(() => console.log("Connected to MongoDB Atlas successfully!"))
