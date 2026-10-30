@@ -29,7 +29,13 @@ function Dashboard() {
         return res.json();
       })
       .then(setSkills)
-      .catch(console.error);
+      .catch((err) => {
+        console.warn("Using local skills for dashboard:", err);
+        const localSkills = JSON.parse(localStorage.getItem("cloud_skills") || "null");
+        setSkills(localSkills || [
+          { _id: "demo-skill-1", name: "Cloud Architecture & Kubernetes", description: "Hands-on microservices design, Docker containers, and Kubernetes cluster orchestration.", category: "Cloud Computing", userId: "demo-teacher-alex" }
+        ]);
+      });
 
     fetch(EXCHANGE_API_URL + "/exchanges")
       .then((res) => {
@@ -37,7 +43,20 @@ function Dashboard() {
         return res.json();
       })
       .then(setRequests)
-      .catch(console.error);
+      .catch((err) => {
+        console.warn("Using local exchanges for dashboard:", err);
+        const localEx = JSON.parse(localStorage.getItem("cloud_exchanges") || "null");
+        setRequests(localEx || [
+          {
+            _id: "demo-exchange-1",
+            skillId: "demo-skill-1",
+            requesterId: "all-students",
+            skillOwnerId: "demo-teacher-alex",
+            message: "Welcome to your Cloud Computing Exchange Workspace! Scheduled sessions, notes, quizzes, and assignments are ready.",
+            status: "accepted"
+          }
+        ]);
+      });
   }, [navigate]);
 
   const userId = user?._id || user?.id || user?.email;

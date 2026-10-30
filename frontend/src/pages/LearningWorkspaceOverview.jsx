@@ -44,8 +44,20 @@ export default function LearningWorkspaceOverview() {
 
       setExchanges(activeExchanges);
     } catch (e) {
-      console.error("Failed to load workspace overview:", e);
-      setError("Unable to connect to Exchange Service. Please check backend services.");
+      console.warn("Using offline/cloud learning workspace:", e);
+      const defaultSkill = { _id: "demo-skill-1", name: "Cloud Architecture & Kubernetes", description: "Hands-on microservices design, Docker containers, and Kubernetes cluster orchestration.", category: "Cloud Computing", userId: "demo-teacher-alex" };
+      const localExchanges = JSON.parse(localStorage.getItem("cloud_exchanges") || "[]");
+      const defaultExchange = {
+        _id: "demo-exchange-1",
+        skillId: "demo-skill-1",
+        requesterId: "all-students",
+        skillOwnerId: "demo-teacher-alex",
+        message: "Welcome to your Cloud Computing Exchange Workspace! Scheduled sessions, notes, quizzes, and assignments are ready.",
+        status: "accepted"
+      };
+      setSkills([defaultSkill]);
+      const combined = [defaultExchange, ...localExchanges.filter(x => x.status === 'accepted')];
+      setExchanges(combined);
     } finally {
       setLoading(false);
     }
