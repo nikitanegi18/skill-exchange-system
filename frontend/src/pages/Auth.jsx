@@ -146,6 +146,35 @@ function Auth() {
               {isLoading ? "Processing..." : (isLogin ? "Sign In" : "Create Account")}
             </button>
           </form>
+
+          {/* Quick Demo Access for Presentation & Testing */}
+          <div className="mt-6 pt-6 border-t border-white/5 flex flex-col gap-2.5">
+            <p className="text-xs text-text-muted text-center font-medium">⚡ Instant Demo Presentation Access</p>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const teacher = { _id: "demo-teacher-alex", name: "Alex Rivera", email: "alex@university.edu" };
+                  localStorage.setItem("user", JSON.stringify(teacher));
+                  navigate("/dashboard");
+                }}
+                className="py-2.5 px-3 bg-purple-600/20 hover:bg-purple-600/40 border border-purple-500/30 rounded-xl text-xs font-medium text-purple-200 transition text-center"
+              >
+                Teacher: Alex
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const student = { _id: "demo-student-sarah", name: "Sarah Chen", email: "sarah@university.edu" };
+                  localStorage.setItem("user", JSON.stringify(student));
+                  navigate("/dashboard");
+                }}
+                className="py-2.5 px-3 bg-pink-600/20 hover:bg-pink-600/40 border border-pink-500/30 rounded-xl text-xs font-medium text-pink-200 transition text-center"
+              >
+                Student: Sarah
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
