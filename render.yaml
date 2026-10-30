@@ -48,6 +48,7 @@ services:
   - type: web
     name: skill-exchange-frontend
     runtime: static
+    autoDeploy: true
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
