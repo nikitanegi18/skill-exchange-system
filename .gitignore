@@ -1,0 +1,14 @@
+node_modules/
+.env
+dist/
+build/
+.DS_Store
+npm-debug.log
+
+
+backend/.env
+frontend/.env
+frontend/.env.local
+replace_urls.js
+replace_urls_safe.js
+scratch/
