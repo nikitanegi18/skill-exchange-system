@@ -12,8 +12,12 @@ import LearningWorkspaceOverview from "./pages/LearningWorkspaceOverview";
 import Layout from "./components/Layout";
 
 function App() {
+  const basename = typeof window !== 'undefined' && window.location.pathname.startsWith('/skill-exchange-system') 
+    ? '/skill-exchange-system' 
+    : '/';
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auth" element={<Auth />} />

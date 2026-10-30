@@ -26,3 +26,4 @@ candidates.forEach(url => {
     console.log(`URL: ${url} -> Timeout`);
   });
 });
+
