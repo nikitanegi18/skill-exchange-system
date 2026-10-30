@@ -21,7 +21,7 @@ function MySkills() {
 
   const loadSkills = async () => {
     try {
-      const response = await fetch((import.meta.env.VITE_SKILL_API_URL || "") + "/skills");
+      const response = await fetch((import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002") + "/skills");
       if (!response.ok) throw new Error("Could not load skills");
       const data = await response.json();
       setSkills(data);
@@ -41,7 +41,7 @@ function MySkills() {
     setMessage("");
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_SKILL_API_URL || ""}/skills/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002"}/skills/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: getUser() ? (getUser()._id || getUser().id || getUser().email) : null })
@@ -64,7 +64,7 @@ function MySkills() {
     setMessage("");
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_SKILL_API_URL || ""}/skills/${skill._id}`, {
+      const response = await fetch(`${import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002"}/skills/${skill._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: skill.name, category: skill.category, description: newDescription, userId: getUser() ? (getUser()._id || getUser().id || getUser().email) : null })
@@ -95,7 +95,7 @@ function MySkills() {
     const userId = user._id || user.id || user.email;
 
     try {
-      const response = await fetch((import.meta.env.VITE_SKILL_API_URL || "") + "/skills", {
+      const response = await fetch((import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002") + "/skills", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, description, category, userId })

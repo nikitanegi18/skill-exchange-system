@@ -14,8 +14,8 @@ function ExchangeRequests() {
 
     try {
       const [reqRes, skillsRes] = await Promise.all([
-        fetch((import.meta.env.VITE_EXCHANGE_API_URL || "") + "/exchanges"),
-        fetch((import.meta.env.VITE_SKILL_API_URL || "") + "/skills")
+        fetch((import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003") + "/exchanges"),
+        fetch((import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002") + "/skills")
       ]);
 
       if (!reqRes.ok) throw new Error("Failed to load exchange requests");
@@ -47,7 +47,7 @@ function ExchangeRequests() {
     setMessage("");
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || ""}/exchanges/${id}/status`, {
+      const response = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003"}/exchanges/${id}/status`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status, userId })

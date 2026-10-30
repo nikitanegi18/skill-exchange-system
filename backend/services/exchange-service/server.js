@@ -65,7 +65,7 @@ app.post("/exchanges", async (req, res) => {
     // Fetch skill to verify owner
     let skillOwnerId = null;
     try {
-      const skillRes = await fetch(`http://localhost:5002/skills/${skillId}`);
+      const skillRes = await fetch(`${process.env.SKILL_SERVICE_URL || 'http://localhost:5002'}/skills/${skillId}`);
       if (skillRes.ok) {
         const skill = await skillRes.json();
         skillOwnerId = skill.userId;
@@ -136,7 +136,7 @@ app.patch("/exchanges/:id/status", async (req, res) => {
       let skillOwnerId = exchange.skillOwnerId;
       if (!skillOwnerId) {
         try {
-          const skillRes = await fetch(`http://localhost:5002/skills/${exchange.skillId}`);
+          const skillRes = await fetch(`${process.env.SKILL_SERVICE_URL || 'http://localhost:5002'}/skills/${exchange.skillId}`);
           if (skillRes.ok) {
             const skill = await skillRes.json();
             skillOwnerId = skill.userId;
@@ -192,5 +192,5 @@ app.post("/exchanges/:id/upload", upload.single("file"), (req, res) => {
   res.status(200).json({ url, filename: req.file.originalname });
 });
 
-const PORT = 5003;
+const PORT = process.env.PORT || 5003;
 app.listen(PORT, () => console.log(`Exchange Service running on http://localhost:${PORT}`));

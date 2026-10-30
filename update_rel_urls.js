@@ -20,3 +20,4 @@ function processDir(dir) {
 }
 processDir(srcDir);
 console.log('Frontend URLs updated to relative/same-origin!');
+

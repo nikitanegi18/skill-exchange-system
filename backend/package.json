@@ -9,6 +9,7 @@
     "start:user": "node services/user-service/server.js",
     "start:skill": "node services/skill-service/server.js",
     "start:exchange": "node services/exchange-service/server.js",
+    "start:messaging": "node e2ee-backend.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

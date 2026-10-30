@@ -117,5 +117,5 @@ app.put("/skills/:id", async (req, res) => {
   } catch (error) { res.status(500).json({ message: "Failed to update skill", error: error.message }); }
 });
 
-const PORT = 5002;
+const PORT = process.env.PORT || 5002;
 app.listen(PORT, () => console.log(`Skill Service running on http://localhost:${PORT}`));

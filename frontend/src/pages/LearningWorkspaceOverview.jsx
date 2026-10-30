@@ -22,8 +22,8 @@ export default function LearningWorkspaceOverview() {
   const loadData = async (userId) => {
     try {
       const [reqRes, skillsRes] = await Promise.all([
-        fetch((import.meta.env.VITE_EXCHANGE_API_URL || "") + "/exchanges"),
-        fetch((import.meta.env.VITE_SKILL_API_URL || "") + "/skills")
+        fetch((import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003") + "/exchanges"),
+        fetch((import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002") + "/skills")
       ]);
 
       if (!reqRes.ok || !skillsRes.ok) throw new Error("Failed to load data");

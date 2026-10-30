@@ -22,7 +22,7 @@ function Dashboard() {
       return;
     }
 
-    fetch((import.meta.env.VITE_SKILL_API_URL || "") + "/skills")
+    fetch((import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002") + "/skills")
       .then((res) => {
         if (!res.ok) throw new Error("Skills unavailable");
         return res.json();
@@ -30,7 +30,7 @@ function Dashboard() {
       .then(setSkills)
       .catch(console.error);
 
-    fetch((import.meta.env.VITE_EXCHANGE_API_URL || "") + "/exchanges")
+    fetch((import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003") + "/exchanges")
       .then((res) => {
         if (!res.ok) throw new Error("Requests unavailable");
         return res.json();

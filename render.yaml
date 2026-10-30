@@ -1,12 +1,57 @@
 services:
+  # Microservice 1: User Identity & Authentication Service
   - type: web
-    name: skill-exchange-app
+    name: user-service
     env: node
     plan: free
-    buildCommand: npm run build
-    startCommand: npm start
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run start:user
     envVars:
       - key: MONGODB_URI
         sync: false
-      - key: NODE_ENV
-        value: production
+
+  # Microservice 2: Skill Catalog & Management Service
+  - type: web
+    name: skill-service
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run start:skill
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+
+  # Microservice 3: Exchange, Workspace & Collaboration Service
+  - type: web
+    name: exchange-service
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run start:exchange
+    envVars:
+      - key: MONGODB_URI
+        sync: false
+
+  # Microservice 4: Real-time Socket.IO & E2EE Messaging Service
+  - type: web
+    name: messaging-service
+    env: node
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm run start:messaging
+
+  # Frontend Web Client (Single Page Application)
+  - type: web
+    name: skill-exchange-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

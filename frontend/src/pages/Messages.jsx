@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 
-const SOCKET_URL = (import.meta.env.VITE_MESSAGING_API_URL || (typeof window !== "undefined" ? window.location.origin : "")) ;
-const API_URL = (import.meta.env.VITE_MESSAGING_API_URL || (typeof window !== "undefined" ? window.location.origin : "")) + '/api';
+const SOCKET_URL = import.meta.env.VITE_MESSAGING_API_URL || "http://localhost:3001";
+const API_URL = (import.meta.env.VITE_MESSAGING_API_URL || "http://localhost:3001") + '/api';
 
 let e2ee = null;
 
