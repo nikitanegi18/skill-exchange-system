@@ -47,12 +47,12 @@ export default function Workspace() {
 
   const loadWorkspace = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003"}/exchanges/${id}`);
+      const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || ""}/exchanges/${id}`);
       if (!res.ok) throw new Error("Failed to load workspace");
       const data = await res.json();
       setExchange(data);
 
-      const skillRes = await fetch((import.meta.env.VITE_SKILL_API_URL || "http://localhost:5002") + "/skills");
+      const skillRes = await fetch((import.meta.env.VITE_SKILL_API_URL || "") + "/skills");
       if (skillRes.ok) {
         const skills = await skillRes.json();
         const found = skills.find(s => s._id === data.skillId);
@@ -67,7 +67,7 @@ export default function Workspace() {
 
   const updateWorkspace = async (newWorkspace) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003"}/exchanges/${id}/workspace`, {
+      const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || ""}/exchanges/${id}/workspace`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ workspace: newWorkspace })
@@ -96,7 +96,7 @@ export default function Workspace() {
       formData.append("file", uploadFile);
       
       try {
-        const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003"}/exchanges/${id}/upload`, {
+        const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || ""}/exchanges/${id}/upload`, {
           method: "POST",
           body: formData
         });
@@ -175,7 +175,7 @@ export default function Workspace() {
       formData.append("file", submissionFile);
       
       try {
-        const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003"}/exchanges/${id}/upload`, {
+        const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || ""}/exchanges/${id}/upload`, {
           method: "POST",
           body: formData
         });
@@ -232,7 +232,7 @@ export default function Workspace() {
   const submitRating = async () => {
     if (!review) return;
     try {
-      const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || "http://localhost:5003"}/exchanges/${id}/rate`, {
+      const res = await fetch(`${import.meta.env.VITE_EXCHANGE_API_URL || ""}/exchanges/${id}/rate`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ rating, review })

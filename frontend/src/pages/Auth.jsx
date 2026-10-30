@@ -17,7 +17,7 @@ function Auth() {
     setError("");
     setIsLoading(true);
 
-    const endpoint = isLogin ? (import.meta.env.VITE_USER_API_URL || "http://localhost:5001") + "/users/login" : (import.meta.env.VITE_USER_API_URL || "http://localhost:5001") + "/users/register";
+    const endpoint = isLogin ? (import.meta.env.VITE_USER_API_URL || "") + "/users/login" : (import.meta.env.VITE_USER_API_URL || "") + "/users/register";
     const body = isLogin ? { email: formData.email, password: formData.password } : formData;
 
     console.log("Submitting to", endpoint, body);
